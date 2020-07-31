@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    line-height: 1.15;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+}
+
+button {
+    background: none;
+    color: inherit;
+    font: inherit; /* 1 */
+    border: none;
+    margin: 0; /* 2 */
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#app {
+    box-sizing: content-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 850px;
+    height: 550px;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    padding: 40px;
+
+    background-color: #393F49;
+
+    color: white;
+}
+
+header {
+    border-bottom: 1px solid #8D9196;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.date-and-input {
+}
+
+.date {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.number-of-tasks {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+}
+
+form input {
+    width: 360px;
+    padding: 1rem;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 3px;
+    margin-right: 1rem;
+}
+
+form button {
+    background-color: #61DBFB;
+    box-sizing: content-box;
+    padding: 1rem 1.5rem;
+    font-size: 1.4rem;
+    border-radius: 3px;
+}
+
+.error-message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: red;
+    margin-bottom: 4rem;
+}
+
+nav {
+    display: flex;
+}
+
+nav button {
+    margin-left: 5rem;
+    font-size: 1.6rem;
+    color: #8D9196;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    height: 393px;
+    overflow-y: scroll;
+}
+li:first-child {
+    border-top: none;
+}
+li {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-top: 1px solid #8D9196;
+    height: 70px;
+}
+
+.tick-btn {
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+.description {
+    display: inline-block;
+    font-size: 1.6rem;
+    color: white;
+    flex-grow: 1;
+}
+
+.delete-btn {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+}
+
+.blue {
+    color: #61DBFB;
+}
