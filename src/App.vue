@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :currentList="currentList" />
+    <Header :currentList="currentList" @switch-list="switchList" />
     <List :list="getList()"/>
   </div>
 </template>
@@ -35,6 +35,9 @@ export default {
     getList() {
       console.log(this.list[this.currentList]);
       return this.list[this.currentList];
+    },
+    switchList(id) {
+      this.currentList = id;
     }
   }
 }

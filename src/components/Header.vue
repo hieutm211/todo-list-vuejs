@@ -15,8 +15,8 @@
         </div>
 
         <nav>
-            <button :class="getClassName(0)">Incomplete Tasks</button>
-            <button :class="getClassName(1)">Completed Tasks</button>
+            <button :class="getClassName(0)" @click="$emit('switch-list', 0)">Incomplete Tasks</button>
+            <button :class="getClassName(1)" @click="$emit('switch-list', 1)">Completed Tasks</button>
         </nav>
     </header>
 </template>
@@ -42,7 +42,5 @@
                 return null;
             },
         },
-        computed: {
-        }
     }
 </script>
