@@ -48,9 +48,7 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 5px;
-}
-
-.date-and-input {
+    padding-bottom: 4rem;
 }
 
 .date {
@@ -89,7 +87,6 @@ form button {
     margin-top: 1rem;
     font-size: 1rem;
     color: red;
-    margin-bottom: 4rem;
 }
 
 nav {

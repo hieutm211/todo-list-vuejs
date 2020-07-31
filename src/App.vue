@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :currentList="currentList" @switch-list="switchList" />
+    <Header :currentList="currentList" :errorMessage="errorMessage" :numberOfActiveTasks="list[0].length" @switch-list="switchList" @check-error="checkError" @add-task="addTask" />
     <List :list="getList()"/>
   </div>
 </template>
@@ -19,25 +19,47 @@ export default {
   data() {
     return {
       list: [
-        [
-          {id: 0, description: 'hello'},
-          {id: 2, description: 'hi'}
-        ], 
-        [
-          {id: 1, description: 'haha'}
-        ]
+        [], 
+        []
       ],
       currentList: 0,
-      currentId: 0
+      currentId: 0,
+      errorMessage: null
     };
   },
   methods: {
     getList() {
-      console.log(this.list[this.currentList]);
       return this.list[this.currentList];
     },
     switchList(id) {
       this.currentList = id;
+    }, 
+    checkError(description) {
+      //check empty
+      if (!description) {
+        this.errorMessage = 'Please enter in a task';
+        return;
+      }
+
+      //check duplicate
+      for (let li of this.list) {
+        for (let task of li) {
+          if (task.description === description) {
+            this.errorMessage = 'This task already exists';
+            return;
+          }
+        }
+      }
+
+      //error is not found
+      this.errorMessage = null;
+    },
+    addTask(description) {
+      this.list[0].push({
+        id: this.currentId++,
+        description: description
+      })
+      console.log(this.list);
     }
   }
 }

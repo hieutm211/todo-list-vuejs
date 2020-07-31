@@ -7,11 +7,11 @@
 
             <div class="number-of-tasks">
                 <span class="blue">
-                    x Active Tasks
+                    {{numberOfActiveTasks}} Active Tasks
                 </span>
             </div>
 
-            <TaskForm/>
+            <TaskForm v-on="$listeners" :errorMessage="errorMessage"/>
         </div>
 
         <nav>
@@ -26,7 +26,7 @@
 
     export default {
         name: 'Header',
-        props: ['currentList'],
+        props: ['numberOfActiveTasks', 'currentList', 'errorMessage'],
         components: {
             TaskForm
         },

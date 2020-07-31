@@ -41,6 +41,11 @@
 <script>
     export default {
         name: 'List',
-        props: ['list']
+        props: ['list'],
+        computed: {
+            isListEmpty() {
+                return this.list[0].length || this.list[1].length;
+            }
+        }
     }
 </script>
