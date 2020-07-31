@@ -15,8 +15,8 @@
         </div>
 
         <nav>
-            <button>Incomplete Tasks</button>
-            <button>Completed Tasks</button>
+            <button :class="getClassName(0)">Incomplete Tasks</button>
+            <button :class="getClassName(1)">Completed Tasks</button>
         </nav>
     </header>
 </template>
@@ -26,8 +26,23 @@
 
     export default {
         name: 'Header',
+        props: ['currentList'],
         components: {
             TaskForm
+        },
+        data() {
+            return {
+            }
+        },
+        methods: {
+            getClassName(id) {
+                if (this.currentList === id) {
+                     return 'active';
+                }
+                return null;
+            },
+        },
+        computed: {
         }
     }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header :currentList="currentList" />
     <List :list="getList()"/>
   </div>
 </template>

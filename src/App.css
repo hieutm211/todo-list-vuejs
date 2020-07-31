@@ -142,3 +142,7 @@ li {
 .blue {
     color: #61DBFB;
 }
+
+.active {
+    color: white;
+}
