@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header :currentList="currentList" :getErrorMessage="getErrorMessage" :numberOfActiveTasks="list[0].length" @switch-list="switchList" @add-task="addTask" />
-    <List :currentList="currentList" :list="getList()" @move-task="moveTask"/>
+    <List :currentList="currentList" :list="getList()" @move-task="moveTask" @remove-task="removeTask"/>
   </div>
 </template>
 

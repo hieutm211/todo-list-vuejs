@@ -22,7 +22,7 @@
             
             <div class="description">{{item.description}}</div>
             
-            <button class="delete-btn">
+            <button class="delete-btn" @click="$emit('remove-task', currentList, index)">
                 <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 width="19" 
