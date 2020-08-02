@@ -5,8 +5,8 @@
                 You currently have <span class="blue">0</span> tasks. Add a task to get started!
             </div>        
         </li>
-        <li v-for="item in list" :key="item.id">
-            <button class="tick-btn">
+        <li v-for="(item, index) in list" :key="item.id">
+            <button class="tick-btn" @click="$emit('move-task', currentList, index)">
                 <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     width="19" 

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header :currentList="currentList" :getErrorMessage="getErrorMessage" :numberOfActiveTasks="list[0].length" @switch-list="switchList" @add-task="addTask" />
-    <List :currentList="currentList" :list="getList()"/>
+    <List :currentList="currentList" :list="getList()" @move-task="moveTask"/>
   </div>
 </template>
 
@@ -51,12 +51,40 @@ export default {
       //error is not found
       return null;
     },
+    // findTask(id) {
+    //   let result;
+    //   this.list.forEach((li, listIndex) => {
+    //     li.forEach((task, taskIndex) => {
+    //       if (task.id === id) {
+    //         result = [listIndex, taskIndex];
+    //       }
+    //     });
+    //   });
+    //   return result;
+    // },
     addTask(description) {
       this.list[0].push({
         id: this.currentId++,
         description: description
-      })
-      console.log(this.list);
+      });
+    },
+
+    removeTask(listIndex, taskIndex) {
+      let newList = [];
+
+      this.list[listIndex].forEach((task, index) => {
+        if (index !== taskIndex) {
+          newList.push({...task});
+        }
+      });
+
+      this.$set(this.list, listIndex, newList);
+    },
+
+    moveTask(listIndex, taskIndex) {
+      let task = {...this.list[listIndex][taskIndex]};
+      this.removeTask(listIndex, taskIndex);
+      this.list[listIndex ^ 1].push(task);
     }
   }
 }
