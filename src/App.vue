@@ -15,17 +15,24 @@ export default {
   components: {
     Header,
     List
-  }, 
+  },
+
   data() {
     return {
-      list: [
-        [], 
-        []
-      ],
+      list: [[],[]],
       currentList: 0,
       currentId: 0,
     };
   },
+  watch: {
+    list: function() {
+      localStorage.setItem('list', JSON.stringify(this.list));
+    },
+    currentId: function() {
+      localStorage.setItem('currentId', JSON.stringify(this.currentId));
+    }
+  },
+
   methods: {
     getList() {
       return this.list[this.currentList];
@@ -51,17 +58,7 @@ export default {
       //error is not found
       return null;
     },
-    // findTask(id) {
-    //   let result;
-    //   this.list.forEach((li, listIndex) => {
-    //     li.forEach((task, taskIndex) => {
-    //       if (task.id === id) {
-    //         result = [listIndex, taskIndex];
-    //       }
-    //     });
-    //   });
-    //   return result;
-    // },
+
     addTask(description) {
       this.list[0].push({
         id: this.currentId++,
@@ -86,7 +83,11 @@ export default {
       this.removeTask(listIndex, taskIndex);
       this.list[listIndex ^ 1].push(task);
     }
-  }
+  },
+  created() {
+    this.list = JSON.parse(localStorage.getItem('list')) || this.list;
+    this.currentId = JSON.parse(localStorage.getItem('currentId')) || this.currentId;
+  },
 }
 </script>
 
