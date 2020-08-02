@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header :currentList="currentList" :errorMessage="errorMessage" :numberOfActiveTasks="list[0].length" @switch-list="switchList" @check-error="checkError" @add-task="addTask" />
-    <List :list="getList()"/>
+    <Header :currentList="currentList" :getErrorMessage="getErrorMessage" :numberOfActiveTasks="list[0].length" @switch-list="switchList" @add-task="addTask" />
+    <List :currentList="currentList" :list="getList()"/>
   </div>
 </template>
 
@@ -24,7 +24,6 @@ export default {
       ],
       currentList: 0,
       currentId: 0,
-      errorMessage: null
     };
   },
   methods: {
@@ -34,25 +33,23 @@ export default {
     switchList(id) {
       this.currentList = id;
     }, 
-    checkError(description) {
+    getErrorMessage(description) {
       //check empty
       if (!description) {
-        this.errorMessage = 'Please enter in a task';
-        return;
+        return 'Please enter in a task';
       }
 
       //check duplicate
       for (let li of this.list) {
         for (let task of li) {
           if (task.description === description) {
-            this.errorMessage = 'This task already exists';
-            return;
+            return 'This task already exists';
           }
         }
       }
 
       //error is not found
-      this.errorMessage = null;
+      return null;
     },
     addTask(description) {
       this.list[0].push({

@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <li>
+        <li v-if="isIncompleteListEmpty">
             <div class="description">
                 You currently have <span class="blue">0</span> tasks. Add a task to get started!
             </div>        
@@ -41,10 +41,17 @@
 <script>
     export default {
         name: 'List',
-        props: ['list'],
+        props: {
+            list: Array,
+            currentList: Number
+        },
         computed: {
-            isListEmpty() {
-                return this.list[0].length || this.list[1].length;
+            isIncompleteListEmpty() {
+                // only consider if current list is 'incompleteList'
+                if (this.currentList === 0) {
+                    return !this.list.length;
+                }
+                return false;
             }
         }
     }

@@ -11,21 +11,24 @@
 <script>
     export default {
         name: 'TaskForm',
-        props: ['errorMessage'],
+        props: {
+            getErrorMessage: {
+                type: Function
+            },
+        },
         data() {
             return {
                 inputValue: '',
+                errorMessage: null
             }
         },
         methods: {
             handleSubmit() {
-                this.$emit('check-error', this.inputValue);
-                this.$nextTick(() => {
-                    if (!this.errorMessage) {
-                        this.$emit('add-task', this.inputValue);
-                        this.inputValue = ''
-                    }
-                });
+                this.errorMessage = this.getErrorMessage(this.inputValue);
+                if (!this.errorMessage) {
+                    this.$emit('add-task', this.inputValue);
+                    this.inputValue = '';
+                }
             }
         }
     }

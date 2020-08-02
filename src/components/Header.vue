@@ -11,7 +11,7 @@
                 </span>
             </div>
 
-            <TaskForm v-on="$listeners" :errorMessage="errorMessage"/>
+            <TaskForm v-on="$listeners" :getErrorMessage="getErrorMessage"/>
         </div>
 
         <nav>
@@ -26,7 +26,17 @@
 
     export default {
         name: 'Header',
-        props: ['numberOfActiveTasks', 'currentList', 'errorMessage'],
+        props: {
+            numberOfActiveTasks: {
+                type: Number
+            }, 
+            currentList: {
+                type: Number
+            },
+            getErrorMessage: {
+                type: Function
+            }
+        },
         components: {
             TaskForm
         },
