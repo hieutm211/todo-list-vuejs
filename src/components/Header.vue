@@ -2,7 +2,7 @@
   <header>
     <div class="date-and-input">
       <div class="date">
-        Friday, July 31
+        {{ date }}
       </div>
 
       <div class="number-of-tasks">
@@ -51,6 +51,42 @@ export default {
         return 'active';
       }
       return null;
+    },
+  },
+  computed: {
+    date() {
+      const dayNames = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ];
+      const monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+      const today = new Date();
+
+      return (
+        dayNames[today.getDay()] +
+        ', ' +
+        monthNames[today.getMonth()] +
+        ' ' +
+        today.getDate()
+      );
     },
   },
 };
