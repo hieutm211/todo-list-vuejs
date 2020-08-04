@@ -1,15 +1,25 @@
+<!--
+Task: {
+  id,
+  category,
+  description
+}
+
+data: array of Task
+-->
+
 <template>
   <div id="app">
     <Header
-      :currentList="currentList"
+      :setCurrentCategory="setCurrentCategory"
       :getErrorMessage="getErrorMessage"
-      :numberOfActiveTasks="list[0].length"
-      @switch-list="switchList"
+      :currentCategory="currentCategory"
+      :numberOfActiveTasks="getTaskList('incomplete').length"
       @add-task="addTask"
     />
     <List
-      :currentList="currentList"
-      :list="getList()"
+      :currentCategory="currentCategory"
+      :taskList="getTaskList(currentCategory)"
       @move-task="moveTask"
       @remove-task="removeTask"
     />
@@ -17,12 +27,12 @@
 </template>
 
 <script>
-import './App.css';
-import Header from './components/Header.vue';
-import List from './components/List';
+import "./App.css";
+import Header from "./components/Header.vue";
+import List from "./components/List";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
     List,
@@ -30,40 +40,44 @@ export default {
 
   data() {
     return {
-      list: [[], []],
-      currentList: 0,
+      data: [],
+      currentCategory: "incomplete",
       currentId: 0,
     };
   },
   watch: {
-    list: function() {
-      localStorage.setItem('list', JSON.stringify(this.list));
+    data: function () {
+      localStorage.setItem("data", JSON.stringify(this.data));
     },
-    currentId: function() {
-      localStorage.setItem('currentId', JSON.stringify(this.currentId));
+    currentId: function () {
+      localStorage.setItem("currentId", JSON.stringify(this.currentId));
     },
   },
 
   methods: {
-    getList() {
-      return this.list[this.currentList];
+    Task(id, category, description) {
+      this.id = id;
+      this.category = category;
+      this.description = description;
     },
-    switchList(id) {
-      this.currentList = id;
+
+    getTaskList(category) {
+      return this.data.filter((item) => item.category === category);
     },
+
+    setCurrentCategory(category) {
+      this.currentCategory = category;
+    },
+
     getErrorMessage(description) {
       //check empty
       if (!description) {
-        return 'Please enter in a task';
+        return "Please enter in a task";
       }
 
       //check duplicate
-      for (let li of this.list) {
-        for (let task of li) {
-          if (task.description === description) {
-            return 'This task already exists';
-          }
-        }
+      if (this.data.find((item) => item.description === description)) {
+        return "This task already exists";
       }
 
       //error is not found
@@ -71,34 +85,28 @@ export default {
     },
 
     addTask(description) {
-      this.list[0].push({
-        id: this.currentId++,
-        description: description,
-      });
+      this.data = [
+        ...this.data,
+        new this.Task(this.currentId, "incomplete", description),
+      ];
+      this.currentId++;
     },
 
-    removeTask(listIndex, taskIndex) {
-      let newList = [];
-
-      this.list[listIndex].forEach((task, index) => {
-        if (index !== taskIndex) {
-          newList.push({ ...task });
-        }
-      });
-
-      this.$set(this.list, listIndex, newList);
+    removeTask(id) {
+      this.data = this.data.filter((item) => item.id !== id);
     },
 
-    moveTask(listIndex, taskIndex) {
-      let task = { ...this.list[listIndex][taskIndex] };
-      this.removeTask(listIndex, taskIndex);
-      this.list[listIndex ^ 1].push(task);
+    moveTask(id) {
+      let task = this.data.find((item) => item.id === id);
+      task.category =
+        task.category === "incomplete" ? "completed" : "incomplete";
     },
   },
+
   created() {
-    this.list = JSON.parse(localStorage.getItem('list')) || this.list;
+    this.data = JSON.parse(localStorage.getItem("data")) || this.data;
     this.currentId =
-      JSON.parse(localStorage.getItem('currentId')) || this.currentId;
+      JSON.parse(localStorage.getItem("currentId")) || this.currentId;
   },
 };
 </script>

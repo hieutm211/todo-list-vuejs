@@ -6,8 +6,8 @@
         started!
       </div>
     </li>
-    <li v-for="(item, index) in list" :key="item.id">
-      <button class="tick-btn" @click="$emit('move-task', currentList, index)">
+    <li v-for="item in taskList" :key="item.id">
+      <button class="tick-btn" @click="$emit('move-task', item.id)">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="19"
@@ -24,10 +24,7 @@
 
       <div class="description">{{ item.description }}</div>
 
-      <button
-        class="delete-btn"
-        @click="$emit('remove-task', currentList, index)"
-      >
+      <button class="delete-btn" @click="$emit('remove-task', item.id)">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="19"
@@ -50,16 +47,22 @@
 
 <script>
 export default {
-  name: 'List',
+  name: "List",
   props: {
-    list: Array,
-    currentList: Number,
+    taskList: {
+      type: Array,
+      required: true,
+    },
+    currentCategory: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     isIncompleteListEmpty() {
-      // only consider if current list is 'incompleteList'
-      if (this.currentList === 0) {
-        return !this.list.length;
+      // only consider if current taskList is 'incompleteList'
+      if (this.currentCategory === "incomplete") {
+        return !this.taskList.length;
       }
       return false;
     },
