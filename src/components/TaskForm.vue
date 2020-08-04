@@ -21,25 +21,25 @@ export default {
     return {
       inputValue: "",
       errorMessage: null,
-    };
+    }
   },
   watch: {
     inputValue: function () {
-      localStorage.setItem("inputValue", JSON.stringify(this.inputValue));
+      localStorage.setItem("inputValue", JSON.stringify(this.inputValue))
     },
   },
   methods: {
     handleSubmit() {
-      this.errorMessage = this.getErrorMessage(this.inputValue);
+      this.errorMessage = this.getErrorMessage(this.inputValue)
       if (!this.errorMessage) {
-        this.$emit("add-task", this.inputValue);
-        this.inputValue = "";
+        this.$emit("add-task", this.inputValue)
+        this.inputValue = ""
       }
     },
   },
   created() {
     this.inputValue =
-      JSON.parse(localStorage.getItem("inputValue")) || this.inputValue;
+      JSON.parse(localStorage.getItem("inputValue")) || this.inputValue
   },
-};
+}
 </script>

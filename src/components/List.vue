@@ -62,10 +62,10 @@ export default {
     isIncompleteListEmpty() {
       // only consider if current taskList is 'incompleteList'
       if (this.currentCategory === "incomplete") {
-        return !this.taskList.length;
+        return !this.taskList.length
       }
-      return false;
+      return false
     },
   },
-};
+}
 </script>

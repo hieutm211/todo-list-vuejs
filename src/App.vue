@@ -27,9 +27,9 @@ data: array of Task
 </template>
 
 <script>
-import "./App.css";
-import Header from "./components/Header.vue";
-import List from "./components/List";
+import "./App.css"
+import Header from "./components/Header.vue"
+import List from "./components/List"
 
 export default {
   name: "App",
@@ -43,70 +43,70 @@ export default {
       data: [],
       currentCategory: "incomplete",
       currentId: 0,
-    };
+    }
   },
   watch: {
     data: function () {
-      localStorage.setItem("data", JSON.stringify(this.data));
+      localStorage.setItem("data", JSON.stringify(this.data))
     },
     currentId: function () {
-      localStorage.setItem("currentId", JSON.stringify(this.currentId));
+      localStorage.setItem("currentId", JSON.stringify(this.currentId))
     },
   },
 
   methods: {
     Task(id, category, description) {
-      this.id = id;
-      this.category = category;
-      this.description = description;
+      this.id = id
+      this.category = category
+      this.description = description
     },
 
     getTaskList(category) {
-      return this.data.filter((item) => item.category === category);
+      return this.data.filter((item) => item.category === category)
     },
 
     setCurrentCategory(category) {
-      this.currentCategory = category;
+      this.currentCategory = category
     },
 
     getErrorMessage(description) {
       //check empty
       if (!description) {
-        return "Please enter in a task";
+        return "Please enter in a task"
       }
 
       //check duplicate
       if (this.data.find((item) => item.description === description)) {
-        return "This task already exists";
+        return "This task already exists"
       }
 
       //error is not found
-      return null;
+      return null
     },
 
     addTask(description) {
       this.data = [
         ...this.data,
         new this.Task(this.currentId, "incomplete", description),
-      ];
-      this.currentId++;
+      ]
+      this.currentId++
     },
 
     removeTask(id) {
-      this.data = this.data.filter((item) => item.id !== id);
+      this.data = this.data.filter((item) => item.id !== id)
     },
 
     moveTask(id) {
-      let task = this.data.find((item) => item.id === id);
+      let task = this.data.find((item) => item.id === id)
       task.category =
-        task.category === "incomplete" ? "completed" : "incomplete";
+        task.category === "incomplete" ? "completed" : "incomplete"
     },
   },
 
   created() {
-    this.data = JSON.parse(localStorage.getItem("data")) || this.data;
+    this.data = JSON.parse(localStorage.getItem("data")) || this.data
     this.currentId =
-      JSON.parse(localStorage.getItem("currentId")) || this.currentId;
+      JSON.parse(localStorage.getItem("currentId")) || this.currentId
   },
-};
+}
 </script>

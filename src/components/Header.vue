@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import TaskForm from "./TaskForm.vue";
+import TaskForm from "./TaskForm.vue"
 
 export default {
   name: "Header",
@@ -56,14 +56,14 @@ export default {
     TaskForm,
   },
   data() {
-    return {};
+    return {}
   },
   methods: {
     getClassName(category) {
       if (this.currentCategory === category) {
-        return "active";
+        return "active"
       }
-      return null;
+      return null
     },
   },
   computed: {
@@ -76,7 +76,7 @@ export default {
         "Thursday",
         "Friday",
         "Saturday",
-      ];
+      ]
       const monthNames = [
         "January",
         "February",
@@ -90,9 +90,9 @@ export default {
         "October",
         "November",
         "December",
-      ];
+      ]
 
-      const today = new Date();
+      const today = new Date()
 
       return (
         dayNames[today.getDay()] +
@@ -100,8 +100,8 @@ export default {
         monthNames[today.getMonth()] +
         " " +
         today.getDate()
-      );
+      )
     },
   },
-};
+}
 </script>
